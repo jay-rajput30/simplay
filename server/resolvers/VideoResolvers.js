@@ -1,6 +1,6 @@
-const Video = require("./models/video.model");
+const Video = require("../models/video.model");
 
-const resolvers = {
+const VideoResolvers = {
   Query: {
     hello: () => {
       return "hello world";
@@ -42,4 +42,4 @@ const resolvers = {
   },
 };
 
-module.exports = { resolvers };
+module.exports = { VideoResolvers };

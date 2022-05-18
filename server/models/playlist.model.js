@@ -7,6 +7,10 @@ const PlaylistSchema = new Schema(
       type: String,
       required: true,
     },
+    uid: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
     videos: [
       {
         type: Schema.Types.ObjectId,

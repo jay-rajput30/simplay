@@ -30,7 +30,6 @@ const UserResolvers = {
         });
 
         let result = await newUser.save();
-        console.log({ result });
         return { ...result._doc, id: result._id };
       } catch (e) {
         console.error({ error: e });

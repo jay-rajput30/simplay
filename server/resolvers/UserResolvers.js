@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const { AuthenticationError } = require("apollo-server-express");
+const Account = require("../models/account.model");
 
 const UserResolvers = {
   Query: {
@@ -15,7 +16,6 @@ const UserResolvers = {
   Mutation: {
     signUp: async (parent, args, context, info) => {
       try {
-        console.log({ args });
         const { name, email, password } = args.user;
         const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -30,6 +30,13 @@ const UserResolvers = {
         });
 
         let result = await newUser.save();
+
+        let newAccount = new Account({
+          uid: result._id,
+          likedVidoes: [],
+          history: [],
+        });
+        await newAccount.save();
         return { ...result._doc, id: result._id };
       } catch (e) {
         console.error({ error: e });

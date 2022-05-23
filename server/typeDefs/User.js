@@ -10,6 +10,11 @@ const User = gql`
     getAllUsers: [User]
   }
 
+  type AuthorizedUser {
+    token: String!
+    expiry: Int!
+  }
+
   input UserInput {
     name: String!
     email: String!
@@ -17,9 +22,9 @@ const User = gql`
   }
 
   type Mutation {
-    signUp(user: UserInput): User
+    signUp(user: UserInput): AuthorizedUser
     getUser(id: ID!): User
-    login(email: String!, password: String!): User
+    login(email: String!, password: String!): AuthorizedUser
   }
 `;
 module.exports = { User };

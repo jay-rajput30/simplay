@@ -1,13 +1,21 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { AuthenticationError } = require("apollo-server-express");
 const Account = require("../models/account.model");
+require("dotenv").config();
 
 const UserResolvers = {
   Query: {
     getAllUsers: async (parent, args, context, info) => {
       try {
-        return await User.find();
+        const { isAuth, userId, email, name } = context;
+        console.log({ isAuth, userId, email, name });
+        if (isAuth) {
+          return await User.find();
+        } else {
+          throw new AuthenticationError("unauthorized access");
+        }
       } catch (e) {
         console.error({ error: e });
       }
@@ -37,18 +45,37 @@ const UserResolvers = {
           history: [],
         });
         await newAccount.save();
-        return { ...result._doc, id: result._id };
+        const token = await jwt.sign(
+          {
+            userId: result._id,
+            email: result._doc.email,
+            name: result._doc.name,
+          },
+          process.env.SECRET_KEY,
+          {
+            expiresIn: "2h",
+          }
+        );
+        return { token, expiry: 2 };
       } catch (e) {
         console.error({ error: e });
       }
     },
     getUser: async (parent, args, context, info) => {
-      try {
-        const { id } = args;
-        let userFound = await User.findById(id);
-        return userFound;
-      } catch (e) {
-        console.error({ error: e });
+      const { isAuth, userId, email, name } = context;
+      if (isAuth) {
+        try {
+          const { isAuth } = req;
+          const { userId } = req;
+          console.log({ isAuth, userId });
+          const { id } = args;
+          let userFound = await User.findById(id);
+          return userFound;
+        } catch (e) {
+          console.error({ error: e });
+        }
+      } else {
+        throw new AuthenticationError("unauthorized access");
       }
     },
     login: async (parent, args, context, info) => {
@@ -62,8 +89,19 @@ const UserResolvers = {
       if (!isValidPassword) {
         throw new AuthenticationError("invalid password");
       }
-
-      return { id: userFound.id, email: userFound.email, name: userFound.name };
+      const token = await jwt.sign(
+        {
+          userId: userFound._id,
+          email: userFound.email,
+          name: userFound.name,
+        },
+        process.env.SECRET_KEY,
+        {
+          expiresIn: "2h",
+        }
+      );
+      return { token, expiry: 2 };
+      // return { id: userFound.id, email: userF/ound.email, name: userFound.name };
     },
   },
 };

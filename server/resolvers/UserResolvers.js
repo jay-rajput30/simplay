@@ -20,47 +20,6 @@ const UserResolvers = {
         console.error({ error: e });
       }
     },
-  },
-  Mutation: {
-    signUp: async (parent, args, context, info) => {
-      try {
-        const { name, email, password } = args.user;
-        const hashedPassword = await bcrypt.hash(password, 12);
-
-        const userAlreadyExists = await User.findOne({ email });
-        if (userAlreadyExists) {
-          throw new Error("user already exists");
-        }
-        const newUser = new User({
-          name,
-          email,
-          password: hashedPassword,
-        });
-
-        let result = await newUser.save();
-
-        let newAccount = new Account({
-          uid: result._id,
-          likedVidoes: [],
-          history: [],
-        });
-        await newAccount.save();
-        const token = await jwt.sign(
-          {
-            userId: result._id,
-            email: result._doc.email,
-            name: result._doc.name,
-          },
-          process.env.SECRET_KEY,
-          {
-            expiresIn: "2h",
-          }
-        );
-        return { token, expiry: 2 };
-      } catch (e) {
-        console.error({ error: e });
-      }
-    },
     getUser: async (parent, args, context, info) => {
       const { isAuth, userId, email, name } = context;
       if (isAuth) {
@@ -101,7 +60,47 @@ const UserResolvers = {
         }
       );
       return { token, expiry: 2 };
-      // return { id: userFound.id, email: userF/ound.email, name: userFound.name };
+    },
+  },
+  Mutation: {
+    signUp: async (parent, args, context, info) => {
+      try {
+        const { name, email, password } = args.user;
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        const userAlreadyExists = await User.findOne({ email });
+        if (userAlreadyExists) {
+          throw new Error("user already exists");
+        }
+        const newUser = new User({
+          name,
+          email,
+          password: hashedPassword,
+        });
+
+        let result = await newUser.save();
+
+        let newAccount = new Account({
+          uid: result._id,
+          likedVidoes: [],
+          history: [],
+        });
+        await newAccount.save();
+        const token = await jwt.sign(
+          {
+            userId: result._id,
+            email: result._doc.email,
+            name: result._doc.name,
+          },
+          process.env.SECRET_KEY,
+          {
+            expiresIn: "2h",
+          }
+        );
+        return { token, expiry: 2 };
+      } catch (e) {
+        console.error({ error: e });
+      }
     },
   },
 };

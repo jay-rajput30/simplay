@@ -9,7 +9,6 @@ const User = gql`
   type Query {
     getAllUsers: [User]
     getUser(id: ID!): User
-    login(email: String!, password: String!): AuthorizedUser
   }
 
   type AuthorizedUser {
@@ -25,6 +24,7 @@ const User = gql`
 
   type Mutation {
     signUp(user: UserInput): AuthorizedUser
+    login(email: String!, password: String!): AuthorizedUser
   }
 `;
 module.exports = { User };

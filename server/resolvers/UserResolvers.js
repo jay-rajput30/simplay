@@ -37,6 +37,8 @@ const UserResolvers = {
         throw new AuthenticationError("unauthorized access");
       }
     },
+  },
+  Mutation: {
     login: async (parent, args, context, info) => {
       const { email, password } = args;
 
@@ -61,8 +63,6 @@ const UserResolvers = {
       );
       return { token, expiry: 2 };
     },
-  },
-  Mutation: {
     signUp: async (parent, args, context, info) => {
       try {
         const { name, email, password } = args.user;

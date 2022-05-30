@@ -5,10 +5,15 @@ const { resolvers } = require("./resolvers/index");
 const { intializeDBConnection } = require("./db/db.connect");
 const { Auth } = require("./middlewares/auth");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
 require("dotenv").config();
-
+const app = express();
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 let startServer = async () => {
-  const app = express();
   const apolloserver = new ApolloServer({
     typeDefs,
     resolvers,
@@ -54,7 +59,12 @@ let startServer = async () => {
   });
 
   intializeDBConnection();
-  typeDefs;
+
+  apolloserver.applyMiddleware({
+    app,
+    path: "/",
+    cors: false, // disables the apollo-server-express cors to allow the cors middleware use
+  });
   app.listen(4000, () => console.log(`server running on port 4000`));
 };
 

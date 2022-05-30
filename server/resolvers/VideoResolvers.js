@@ -8,12 +8,6 @@ const VideoResolvers = {
     getAllVideos: async (parent, args, context, info) => {
       const { isAuth, userId, email, name } = context;
 
-      // if(isAuth){
-
-      // }else{
-      //   throw new AuthenticationError("unauthorized access");
-      // }
-
       if (isAuth) {
         try {
           return await Video.find();

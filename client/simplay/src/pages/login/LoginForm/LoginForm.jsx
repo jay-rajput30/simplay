@@ -25,8 +25,6 @@ function Login() {
 
   const btnClickHandler = async (e) => {
     const { name } = e.target;
-    console.log({ name });
-
     if (
       (formData.email === "" || formData.password === "") &&
       name !== "guest"
@@ -34,7 +32,6 @@ function Login() {
       alert("invalid credentials");
     }
     try {
-      console.log({ formData });
       const result = await login(
         name === "guest"
           ? {
@@ -54,11 +51,6 @@ function Login() {
         })
       );
       navigate("/");
-      // console.log({
-      //   result: result.data,
-      //   token: result.data.login.token,
-      //   expiry: result.data.login.expiry,
-      // });
     } catch (e) {
       console.log({ error: e });
     }

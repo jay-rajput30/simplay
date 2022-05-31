@@ -10,7 +10,7 @@ const VideoPage = () => {
   if (fetching) return <h1>loading...</h1>;
   if (error) return <h1>Oh something went wrong! {error.message}</h1>;
   console.log({ data });
-  return <div>this isthe video listing page</div>;
+  return <div>this is the video listing page</div>;
 };
 
 export default VideoPage;

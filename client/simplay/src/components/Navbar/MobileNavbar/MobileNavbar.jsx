@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IconContext } from "react-icons";
 import {
   RiThumbUpFill,
@@ -10,6 +10,10 @@ import {
 import { MobileNavbarContainer } from "./MobileNavbar.style";
 
 const MobileNavbar = () => {
+  const navigate = useNavigate();
+  const navIconCLickHandler = (page) => {
+    navigate(page);
+  };
   return (
     <MobileNavbarContainer>
       <NavLink to="/">
@@ -21,10 +25,10 @@ const MobileNavbar = () => {
             },
           }}
         >
-          <RiHome7Fill />
+          <RiHome7Fill onClick={() => navIconCLickHandler("/home")} />
         </IconContext.Provider>
       </NavLink>
-      <NavLink to="/likedvideos">
+      <NavLink to="/liked">
         <IconContext.Provider
           value={{
             style: {
@@ -33,7 +37,7 @@ const MobileNavbar = () => {
             },
           }}
         >
-          <RiThumbUpFill />
+          <RiThumbUpFill onClick={() => navIconCLickHandler("/liked")} />
         </IconContext.Provider>
       </NavLink>
       <NavLink to="/history">
@@ -45,7 +49,7 @@ const MobileNavbar = () => {
             },
           }}
         >
-          <RiHistoryFill />
+          <RiHistoryFill onClick={() => navIconCLickHandler("/history ")} />
         </IconContext.Provider>
       </NavLink>
       <NavLink to="/account">
@@ -57,7 +61,7 @@ const MobileNavbar = () => {
             },
           }}
         >
-          <RiUserFill />
+          <RiUserFill onClick={() => navIconCLickHandler("/account")} />
         </IconContext.Provider>
       </NavLink>
     </MobileNavbarContainer>

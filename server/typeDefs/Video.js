@@ -8,6 +8,11 @@ const Video = gql`
     likes: Int!
     link: String!
     category: String!
+    tumbhnail: Thumbnail!
+  }
+  type Thumbnail {
+    image: String!
+    description: String!
   }
   type Query {
     hello: String
@@ -21,6 +26,7 @@ const Video = gql`
     likes: Int!
     link: String!
     category: String!
+    description: String!
   }
   type Mutation {
     addVideo(video: VideoInput): Video

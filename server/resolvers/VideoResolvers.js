@@ -25,8 +25,22 @@ const VideoResolvers = {
 
       if (isAuth) {
         try {
-          const { title, views, likes, link, category } = args.video;
-          const newVideo = new Video({ title, views, likes, link, category });
+          const { title, views, likes, link, category, description } =
+            args.video;
+          const thumbnail = {
+            image: `https://i.pravatar.cc/150?img=${Math.floor(
+              Math.random() * 21
+            )}`,
+            description,
+          };
+          const newVideo = new Video({
+            title,
+            views,
+            likes,
+            link,
+            category,
+            thumbnail,
+          });
           await newVideo.save();
         } catch (e) {
           console.error({ error: e });

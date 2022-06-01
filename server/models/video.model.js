@@ -15,6 +15,16 @@ const VideoSchema = new Schema(
       type: Number,
       default: 0,
     },
+    thumbnail: {
+      image: {
+        type: String,
+        default: "https://i.pravatar.cc/150?img=60",
+      },
+      description: {
+        type: String,
+        default: "this is the auto-generated desciption of the video.",
+      },
+    },
     link: {
       type: String,
       required: true,

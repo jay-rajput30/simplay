@@ -12,6 +12,7 @@ const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 let startServer = async () => {
   const apolloserver = new ApolloServer({
@@ -33,6 +34,7 @@ let startServer = async () => {
       let decodedToken;
       try {
         decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+        console.log({ decodedToken });
       } catch (e) {
         user.isAuth = false;
         console.error({ error: e });

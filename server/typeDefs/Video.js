@@ -8,7 +8,7 @@ const Video = gql`
     likes: Int!
     link: String!
     category: String!
-    tumbhnail: Thumbnail!
+    thumbnail: Thumbnail!
   }
   type Thumbnail {
     image: String!

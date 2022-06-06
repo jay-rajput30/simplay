@@ -1,22 +1,22 @@
 import styled from "styled-components";
 
 export const CardDetailsContainer = styled.div`
-  border: 2px solid orange;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   padding: var(--space-2) var(--space-1) var(--space-1) var(--space-1);
   @media and screen (min-width: 768px) {
     padding: var(--space-3) var(--space-1) var(--space-1) var(--space-1);
   }
 `;
 
-export const CardAvatarImage = styled.image`
-  border: 5px solid green;
+export const CardAvatarImage = styled.img`
+  border: 1px solid var(--clr-heading-text);
+  border-radius: 50%;
   height: 50px;
   width: 50px;
-  border-radius: 50%;
-  display: inline;
+  object-fit: cover;
+  margin-top: 0.3rem;
 `;
 
 export const CardVideoDetails = styled.div`
@@ -36,7 +36,17 @@ export const CardDetailsTitle = styled.h4`
 `;
 
 export const CardDetailsViews = styled.span`
-  font-size: var(--length-sm-2);
+  font-size: var(--length-sm-3);
   text-align: start;
+  width: 100%;
+`;
+export const CardDetailsLike = styled.span`
+  font-size: var(--length-sm-3);
+  text-align: start;
+  width: 100%;
+  padding-top: -0.5rem;
+`;
+
+export const LikesContainer = styled.div`
   width: 100%;
 `;

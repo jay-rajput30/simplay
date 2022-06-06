@@ -18,7 +18,6 @@ const VideoPage = () => {
         border: "2px solid red",
       }}
     >
-      <h2>this is the video listing page</h2>
       <VideoCardsContainer>
         {data.getAllVideos.map((item) => {
           return <Card video={item} />;

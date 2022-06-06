@@ -34,7 +34,6 @@ let startServer = async () => {
       let decodedToken;
       try {
         decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-        console.log({ decodedToken });
       } catch (e) {
         user.isAuth = false;
         console.error({ error: e });

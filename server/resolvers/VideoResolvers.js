@@ -25,8 +25,15 @@ const VideoResolvers = {
 
       if (isAuth) {
         try {
-          const { title, views, likes, link, category, description } =
-            args.video;
+          const {
+            title,
+            views,
+            likes,
+            link,
+            category,
+            description,
+            thumbnailImage,
+          } = args.video;
           const thumbnail = {
             image: `https://i.pravatar.cc/150?img=${Math.floor(
               Math.random() * 21
@@ -40,6 +47,7 @@ const VideoResolvers = {
             link,
             category,
             thumbnail,
+            thumbnailImage,
           });
           await newVideo.save();
         } catch (e) {

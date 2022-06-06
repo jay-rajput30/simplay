@@ -25,6 +25,10 @@ const VideoSchema = new Schema(
         default: "this is the auto-generated desciption of the video.",
       },
     },
+    thumbnailImage: {
+      type: String,
+      default: "http://i3.ytimg.com/vi/UAm0aWvzFI8/hqdefault.jpg",
+    },
     link: {
       type: String,
       required: true,

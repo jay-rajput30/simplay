@@ -9,6 +9,7 @@ const Video = gql`
     link: String!
     category: String!
     thumbnail: Thumbnail!
+    thumbnailImage: String!
   }
   type Thumbnail {
     image: String!
@@ -27,6 +28,7 @@ const Video = gql`
     link: String!
     category: String!
     description: String!
+    thumbnailImage: String!
   }
   type Mutation {
     addVideo(video: VideoInput): Video

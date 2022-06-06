@@ -7,6 +7,11 @@ query {
         likes
         link
         category
+        thumbnail{
+            image
+            description
+        }
+        thumbnailImage
     }
 }
 

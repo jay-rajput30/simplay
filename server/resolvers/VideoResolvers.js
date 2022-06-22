@@ -2,9 +2,6 @@ const Video = require("../models/video.model");
 
 const VideoResolvers = {
   Query: {
-    hello: () => {
-      return "hello world";
-    },
     getAllVideos: async (parent, args, context, info) => {
       const { isAuth, userId, email, name } = context;
 

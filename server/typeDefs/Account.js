@@ -7,6 +7,17 @@ const Account = gql`
     history: [ID!]
   }
 
+  type Video {
+    id: ID!
+    title: String!
+    views: Int!
+    likes: Int!
+    link: String!
+    category: String!
+    thumbnail: Thumbnail!
+    thumbnailImage: String!
+  }
+
   type UserHistory {
     uid: ID!
     history: [ID]
@@ -18,12 +29,12 @@ const Account = gql`
   }
 
   type Query {
-    getUserLikedVideos(uid: ID!): UserLikedVideos
+    getUserLikedVideos(uid: ID!): Video
     getUserHistory(uid: ID!): UserHistory
   }
 
   type Mutation {
-    updateUserLikedVideos(uid: ID!, videoId: ID!): UserLikedVideos
+    updateUserLikedVideos(videoId: ID!): Video
     addtoUserHistory(uid: ID!, videoId: ID!): UserHistory
   }
 `;

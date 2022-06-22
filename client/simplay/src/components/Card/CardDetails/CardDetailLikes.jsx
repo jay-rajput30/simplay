@@ -1,21 +1,24 @@
 import React from "react";
 import { CardDetailsLike, LikesContainer } from "./CardDetails.styles";
 import { IconContext } from "react-icons";
-import { RiThumbUpFill } from "react-icons/ri";
-const CardDetailLikes = ({ likes }) => {
+import { RiThumbUpLine } from "react-icons/ri";
+
+const CardDetailLikes = ({ likes, likeBtnClickHandler }) => {
+  // eslint-disable-next-line
+
   return (
     <LikesContainer>
       <IconContext.Provider
         value={{
           style: {
             color: "var(--clr-heading-text)",
-            fontSize: "var(--length-md-2)",
+            fontSize: "var(--length-md-3)",
             display: "inline",
-            paddingTop: "0.5rem",
+            marginRight: "0.5rem",
           },
         }}
       >
-        <RiThumbUpFill />
+        <RiThumbUpLine onClick={likeBtnClickHandler} />
       </IconContext.Provider>
       <CardDetailsLike>{likes} likes</CardDetailsLike>
     </LikesContainer>

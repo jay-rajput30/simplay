@@ -13,11 +13,7 @@ const VideoPage = () => {
   if (error) return <h1>Oh something went wrong! {error.message}</h1>;
   console.log({ data: data.getAllVideos });
   return (
-    <div
-      style={{
-        border: "2px solid red",
-      }}
-    >
+    <div>
       <VideoCardsContainer>
         {data.getAllVideos.map((item) => {
           return <Card video={item} />;

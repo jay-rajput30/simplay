@@ -1,4 +1,5 @@
 const Account = require("../models/account.model");
+const Video = require("../models/video.model");
 
 const AccountResolvers = {
   Query: {
@@ -45,9 +46,12 @@ const AccountResolvers = {
 
       if (isAuth) {
         try {
-          const { uid, videoId } = args;
+          const { videoId } = args;
 
-          const accountFound = await Account.findOne({ uid });
+          const accountFound = await Account.findOne({ userId });
+          const videoFound = await Video.findOne({ videoId });
+          videoFound.views = +1;
+
           const videoAlreadyExists = accountFound.likedVideos.includes(
             videoId.toString()
           );
@@ -57,15 +61,22 @@ const AccountResolvers = {
               (item) => item.toString() != videoId.toString()
             );
             accountFound.likedVideos = newLikedVideoList;
+
+            videoFound.likes -= 1;
           } else {
             accountFound.likedVideos.unshift(videoId);
+            videoFound.likes += 1;
           }
 
           await accountFound.save();
-          return {
-            uid: accountFound.uid,
-            likedVideos: accountFound.likedVideos,
-          };
+          await videoFound.save();
+          const updatedAccountFound = await Account.findOne({ userId });
+
+          return videoFound;
+          // return {
+          //   uid: accountFound.uid,
+          //   likedVideos: accountFound.likedVideos,
+          // };
         } catch (e) {
           console.error({ error: e });
         }

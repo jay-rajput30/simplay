@@ -15,11 +15,6 @@ const Video = gql`
     image: String!
     description: String!
   }
-  type Query {
-    hello: String
-
-    getAllVideos: [Video]
-  }
 
   input VideoInput {
     title: String!
@@ -30,6 +25,11 @@ const Video = gql`
     description: String!
     thumbnailImage: String!
   }
+
+  type Query {
+    getAllVideos: [Video]
+  }
+
   type Mutation {
     addVideo(video: VideoInput): Video
     getVideo(id: ID): Video

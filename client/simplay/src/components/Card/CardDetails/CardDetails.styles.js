@@ -39,14 +39,19 @@ export const CardDetailsViews = styled.span`
   font-size: var(--length-sm-3);
   text-align: start;
   width: 100%;
+  margin-top: var(--space-1);
 `;
 export const CardDetailsLike = styled.span`
   font-size: var(--length-sm-3);
   text-align: start;
   width: 100%;
-  padding-top: -0.5rem;
+  padding-top: 0.3rem;
 `;
 
 export const LikesContainer = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: centerk;
+  margin-top: var(--space-1);
 `;

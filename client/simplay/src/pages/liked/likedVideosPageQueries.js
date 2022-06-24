@@ -1,0 +1,20 @@
+export const getLikedVideosQuery = `
+    query{
+        getUserLikedVideos{
+            uid
+            likedVideos{
+                id
+                title
+                views
+                likes
+                link
+                category
+                thumbnail{
+                    image
+                    description
+                }
+                thumbnailImage
+              }
+        }
+    }
+`;

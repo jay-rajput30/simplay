@@ -34,7 +34,7 @@ const Account = gql`
   }
 
   type Query {
-    getUserLikedVideos: Video
+    getUserLikedVideos: UserLikedVideos
     getUserHistory: UserHistory
   }
 

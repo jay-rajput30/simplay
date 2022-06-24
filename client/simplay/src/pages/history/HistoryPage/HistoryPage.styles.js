@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LikedPageContainer = styled.div`
+export const HistoryPageContainer = styled.div`
   margin: 0 auto;
   padding-top: 4.5rem;
   @media screen and (min-width: 765px) {

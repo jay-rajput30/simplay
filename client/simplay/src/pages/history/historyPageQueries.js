@@ -1,0 +1,20 @@
+export const getUserHistory = `
+query{
+    getUserHistory{
+      uid
+      history{
+        id
+        title
+        views
+        likes
+        link
+        category
+        thumbnail{
+            image
+            description
+        }
+        thumbnailImage
+      }
+    }
+  }
+`;

@@ -12,7 +12,7 @@ const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
 };
-
+// corsOptions
 app.use(cors(corsOptions));
 let startServer = async () => {
   const apolloserver = new ApolloServer({

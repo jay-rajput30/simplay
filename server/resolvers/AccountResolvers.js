@@ -8,11 +8,12 @@ const AccountResolvers = {
 
       if (isAuth) {
         try {
-          const { uid } = args;
-          const accountDetials = await Account.findOne({ uid });
+          const accountDetails = await Account.findOne({
+            uid: userId,
+          }).populate({ path: "likedVideos", model: "video" });
           return {
-            uid: accountDetials.uid,
-            likedVideos: accountDetials.likedVideos,
+            uid: accountDetails.uid,
+            likedVideos: accountDetails.likedVideos,
           };
         } catch (e) {
           console.error({ error: e });
@@ -23,14 +24,18 @@ const AccountResolvers = {
     },
     getUserHistory: async (parent, args, context, info) => {
       const { isAuth, userId, email, name } = context;
-
       if (isAuth) {
         try {
-          const { uid } = args;
-          const accountDetials = await Account.findOne({ uid });
+          const accountDetails = await Account.findOne({
+            uid: userId,
+          }).populate({
+            path: "history",
+            model: "video",
+          });
+          console.log({ accountDetails });
           return {
-            uid: accountDetials.uid,
-            history: accountDetials.history,
+            uid: accountDetails.uid,
+            history: accountDetails.history,
           };
         } catch (e) {
           console.error({ error: e });
@@ -89,8 +94,8 @@ const AccountResolvers = {
 
       if (isAuth) {
         try {
-          const { uid, videoId } = args;
-          const accountFound = await Account.findOne({ uid });
+          const { videoId } = args;
+          const accountFound = await Account.findOne({ uid: userId });
           const existsInHistory = accountFound.history.includes(
             videoId.toString()
           );

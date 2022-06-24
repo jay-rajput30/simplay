@@ -14,14 +14,7 @@ query {
         thumbnailImage
     }
 }
-
-
 `;
-
-//create mutation for increment like count.
-
-//update the ui on like count.
-// useMutation logic for increasing like count
 
 export const updateLikeCountMutation = `
 mutation updateUserLikedVideos($videoId: ID!){

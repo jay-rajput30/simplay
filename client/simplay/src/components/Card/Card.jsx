@@ -5,6 +5,7 @@ import CardImage from "./CardImage";
 
 const Card = ({ video }) => {
   const { thumbnailImage } = video;
+  console.log({ video });
   return (
     <CardContainer>
       <CardImage thumbnailImage={thumbnailImage} />

@@ -15,7 +15,7 @@ const VideoPage = () => {
     <div>
       <VideoCardsContainer>
         {data.getAllVideos.map((item) => {
-          return <Card video={item} />;
+          return <Card key={item.id} video={item} />;
         })}
         {/* <YouTube
           width={330}

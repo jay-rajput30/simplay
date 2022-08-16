@@ -11,6 +11,7 @@ const AccountResolvers = {
           const accountDetails = await Account.findOne({
             uid: userId,
           }).populate({ path: "likedVideos", model: "video" });
+          console.log({ videosBE: accountDetails.likedVideos });
           return {
             uid: accountDetails.uid,
             likedVideos: accountDetails.likedVideos,

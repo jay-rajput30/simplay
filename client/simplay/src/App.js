@@ -7,8 +7,8 @@ import VideoPage from "./pages/video/VideoPage/VideoPage";
 import LikedVideosPage from "./pages/liked/LikedVideosPage/LikedVideosPage";
 import AccountPage from "./pages/account/AccountPage/AccountPage";
 import HistoryPage from "./pages/history/HistoryPage/HistoryPage";
-import MobileNavbar from "./components/Navbar/MobileNavbar/MobileNavbar";
-import DesktopNavbar from "./components/Navbar/DesktopNavbar/DesktopNavbar";
+// import MobileNavbar from "./components/Navbar/MobileNavbar/MobileNavbar";
+// import DesktopNavbar from "./components/Navbar/DesktopNavbar/DesktopNavbar";
 const MainContainer = styled.div`
   height: 100vh;
 `;
@@ -22,8 +22,8 @@ function App() {
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/account" element={<AccountPage />} />
       </Routes>
-      <MobileNavbar />
-      <DesktopNavbar />
+      {/* <MobileNavbar /> */}
+      {/* <DesktopNavbar /> */}
     </MainContainer>
   );
 }

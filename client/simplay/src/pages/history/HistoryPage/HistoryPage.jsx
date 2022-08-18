@@ -3,7 +3,8 @@ import { useQuery } from "urql";
 import Card from "../../../components/Card/Card";
 import { getUserHistory } from "../historyPageQueries";
 import { HistoryPageContainer } from "./HistoryPage.styles";
-
+import DesktopNavbar from "../../../components/Navbar/DesktopNavbar/DesktopNavbar";
+import MobileNavbar from "../../../components/Navbar/MobileNavbar/MobileNavbar";
 const HistoryPage = () => {
   const [result, reExecuteQuery] = useQuery({ query: getUserHistory });
 
@@ -13,6 +14,8 @@ const HistoryPage = () => {
   console.log(data.getUserHistory.history);
   return (
     <HistoryPageContainer>
+      <DesktopNavbar />
+      <MobileNavbar />
       {data.getUserHistory.history.map((item) => {
         return <Card video={item} />;
       })}

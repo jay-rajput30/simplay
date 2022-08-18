@@ -43,6 +43,7 @@ function Login() {
       if (result.error) {
         console.error("oh no something went wrong", result.error);
       }
+      console.log({result})
       localStorage.setItem(
         "simplayToken",
         JSON.stringify({

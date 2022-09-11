@@ -10,11 +10,22 @@ import {
   RiHome7Fill,
   RiUserFill,
 } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const DesktopNavbar = () => {
+  const navigate = useNavigate();
+
+  const navIconCLickHandler = (page) => {
+    navigate(page);
+  };
+  const logoutClickHandler = () => {
+    console.log("logout clicked");
+    localStorage.removeItem("simplayToken");
+    navigate("/login");
+  };
   return (
     <DesktopNavbarContainer>
-      <DesktopNavbarItem>
+      <DesktopNavbarItem onClick={() => navIconCLickHandler("/")}>
         <IconContext.Provider
           value={{
             className: "desktop--navbar--icon",
@@ -24,7 +35,7 @@ const DesktopNavbar = () => {
         </IconContext.Provider>
         <span>home</span>
       </DesktopNavbarItem>
-      <DesktopNavbarItem>
+      <DesktopNavbarItem onClick={() => navIconCLickHandler("/liked")}>
         <IconContext.Provider
           value={{
             className: "desktop--navbar--icon",
@@ -34,7 +45,7 @@ const DesktopNavbar = () => {
         </IconContext.Provider>
         <span>liked</span>
       </DesktopNavbarItem>
-      <DesktopNavbarItem>
+      <DesktopNavbarItem onClick={() => navIconCLickHandler("/history")}>
         <IconContext.Provider
           value={{
             className: "desktop--navbar--icon",
@@ -44,7 +55,7 @@ const DesktopNavbar = () => {
         </IconContext.Provider>
         <span>history</span>
       </DesktopNavbarItem>
-      <DesktopNavbarItem>
+      <DesktopNavbarItem onClick={() => navIconCLickHandler("/account")}>
         <IconContext.Provider
           value={{
             className: "desktop--navbar--icon",
@@ -54,7 +65,7 @@ const DesktopNavbar = () => {
         </IconContext.Provider>
         <span>account</span>
       </DesktopNavbarItem>
-      <button>logout</button>
+      <button onClick={logoutClickHandler}>logout</button>
     </DesktopNavbarContainer>
   );
 };

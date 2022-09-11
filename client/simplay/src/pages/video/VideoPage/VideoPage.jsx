@@ -6,21 +6,34 @@ import Card from "../../../components/Card/Card";
 import { VideoCardsContainer } from "./VideoPage.styles";
 import DesktopNavbar from "../../../components/Navbar/DesktopNavbar/DesktopNavbar";
 import MobileNavbar from "../../../components/Navbar/MobileNavbar/MobileNavbar";
+import { useNavigate } from "react-router-dom";
+
 const VideoPage = () => {
-  const [result, reexecuteQuery] = useQuery({
+  const [result] = useQuery({
     query: getAllVidoesQuery,
   });
   const { data, fetching, error } = result;
-  console.log({ videoData: data });
+  const navigate = useNavigate();
   if (fetching) return <h1>loading...</h1>;
   if (error) return <h1>Oh something went wrong! {error.message}</h1>;
+
+  const cardClickHandler = (id) => {
+    console.log({ id });
+    // navigate(`/singlevideo${id}`);
+  };
   return (
     <div>
       <DesktopNavbar />
       <MobileNavbar />
       <VideoCardsContainer>
         {data.getAllVideos.map((item) => {
-          return <Card key={item.id} video={item} />;
+          return (
+            <Card
+              key={item.id}
+              video={item}
+              onClick={() => cardClickHandler(item.id)}
+            />
+          );
         })}
         {/* <YouTube
           width={330}

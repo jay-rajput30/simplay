@@ -53,4 +53,7 @@ export const DesktopNavbarItem = styled.div`
     color: var(--clr-heading-text);
     margin-left: var(--space-2);
   }
+  &:hover {
+    cursor: pointer;
+  }
 `;

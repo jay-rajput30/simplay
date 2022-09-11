@@ -32,25 +32,35 @@ function Login() {
       alert("invalid credentials");
     }
     try {
-      const result = await login(
-        name === "guest"
-          ? {
-              email: "testtwo@gmail.com",
-              password: "testtwo",
-            }
-          : formData
-      );
+      const result = await login(formData);
       if (result.error) {
         console.error("oh no something went wrong", result.error);
       }
-      console.log({result})
-      localStorage.setItem(
-        "simplayToken",
-        JSON.stringify({
-          token: result.data.login.token,
-          expiry: result.data.login.expiry,
-        })
-      );
+      console.log({ result });
+      localStorage.setItem("token", {
+        token: result.data.login.token,
+        expiry: result.data.login.expiry,
+      });
+      navigate("/");
+    } catch (e) {
+      console.log({ error: e });
+    }
+  };
+
+  const guestBtnClickHandler = async () => {
+    try {
+      const result = await login({
+        email: "testtwo@gmail.com",
+        password: "testtwo",
+      });
+      if (result.error) {
+        console.error("oh no something went wrong", result.error);
+      }
+      console.log({ result });
+      localStorage.setItem("token", {
+        token: result.data.login.token,
+        expiry: result.data.login.expiry,
+      });
       navigate("/");
     } catch (e) {
       console.log({ error: e });
@@ -77,7 +87,7 @@ function Login() {
           <Button onClick={btnClickHandler} name="login">
             login
           </Button>
-          <Button onClick={btnClickHandler} name="guest">
+          <Button onClick={guestBtnClickHandler} name="guest">
             guest
           </Button>
         </ButtonContainer>

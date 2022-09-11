@@ -6,7 +6,7 @@ import { HistoryPageContainer } from "./HistoryPage.styles";
 import DesktopNavbar from "../../../components/Navbar/DesktopNavbar/DesktopNavbar";
 import MobileNavbar from "../../../components/Navbar/MobileNavbar/MobileNavbar";
 const HistoryPage = () => {
-  const [result, reExecuteQuery] = useQuery({ query: getUserHistory });
+  const [result] = useQuery({ query: getUserHistory });
 
   const { data, fetching, error } = result;
   if (fetching) return <h1>loading...</h1>;

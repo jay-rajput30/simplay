@@ -7,6 +7,7 @@ import VideoPage from "./pages/video/VideoPage/VideoPage";
 import LikedVideosPage from "./pages/liked/LikedVideosPage/LikedVideosPage";
 import AccountPage from "./pages/account/AccountPage/AccountPage";
 import HistoryPage from "./pages/history/HistoryPage/HistoryPage";
+import SingleVideoPage from "./pages/singlevideo/SingleVideoPage/SingleVideoPage";
 // import MobileNavbar from "./components/Navbar/MobileNavbar/MobileNavbar";
 // import DesktopNavbar from "./components/Navbar/DesktopNavbar/DesktopNavbar";
 const MainContainer = styled.div`
@@ -21,6 +22,7 @@ function App() {
         <Route path="/liked" element={<LikedVideosPage />} />
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="singlepage/:id" element={<SingleVideoPage />} />
       </Routes>
       {/* <MobileNavbar /> */}
       {/* <DesktopNavbar /> */}

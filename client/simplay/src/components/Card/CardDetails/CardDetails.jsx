@@ -32,7 +32,7 @@ const CardDetails = ({ video }) => {
         <CardDetailViews>{views + " views"}</CardDetailViews>
         <CardDetailLikes
           likes={likes}
-          likeBtnClickHandler={likeBtnClickHandler}
+          // likeBtnClickHandler={likeBtnClickHandler}
         />
       </CardVideoDetails>
     </CardDetailsContainer>

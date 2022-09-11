@@ -2,56 +2,41 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import {
-  createClient,
-  Provider,
-  fetchExchange,
-  dedupExchange,
-  subscriptionExchange,
-} from "urql";
-import { devtoolsExchange } from "@urql/devtools";
 import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter as Router } from "react-router-dom";
-// import { authExchange } from "@urql/exchange-auth";
+import {
+  ApolloClient,
+  ApolloProvider,
+  createHttpLink,
+  InMemoryCache,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+const httpLink = createHttpLink({
+  uri: "http://localhost:4000/graphql",
+});
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("accessToken");
 
-const client = createClient({
-  url: "http://localhost:4000/graphql",
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
 
-  // exchanges: [authExchange({
-  //   const getAuth = async ({ authState }) => {
-  //     if (!authState) {
-  //       const token = localStorage.getItem('token');
-  //       const refreshToken = localStorage.getItem('refreshToken');
-  //       if (token && refreshToken) {
-  //         return { token, refreshToken };
-  //       }
-  //       return null;
-  //     }
-
-  //     return null;
-  //   }
-  // })],
-  fetchOptions: () => {
-    let token = localStorage.getItem("token");
-    // JSON.parse(localStorage.getItem("simplayToken")).token;
-    // const token = JSON.parse(localStorage.getItem("simplayToken")).token;
-    console.log(token.token);
-    return {
-      headers: {
-        authorization: token ? `Bearer ${token.token}` : "",
-      },
-    };
-  },
-  exchanges: [devtoolsExchange, dedupExchange, fetchExchange],
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
 });
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider value={client}>
+    <ApolloProvider client={client}>
       <Router>
         <GlobalStyles />
         <App />
       </Router>
-    </Provider>
+    </ApolloProvider>
   </React.StrictMode>
 );

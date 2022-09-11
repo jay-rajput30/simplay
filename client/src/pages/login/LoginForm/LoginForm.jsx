@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "urql";
+import { useMutation } from "@apollo/client";
 import { LoginMutation } from "../loginQueries";
 import {
   LoginForm,
@@ -16,7 +16,7 @@ function Login() {
     email: "",
     password: "",
   });
-  const [loginResult, login] = useMutation(LoginMutation);
+  const [mutate, result] = useMutation(LoginMutation);
 
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -32,14 +32,16 @@ function Login() {
       alert("invalid credentials");
     }
     try {
-      const result = await login(formData);
-      if (result.error) {
-        console.error("oh no something went wrong", result.error);
-      }
-      console.log({ result });
+      const { data } = await mutate({
+        variables: {
+          email: formData.email,
+          password: formData.password,
+        },
+      });
+      console.log({ data });
       localStorage.setItem("token", {
-        token: result.data.login.token,
-        expiry: result.data.login.expiry,
+        token: data.login.token,
+        expiry: data.login.expiry,
       });
       navigate("/");
     } catch (e) {
@@ -49,11 +51,13 @@ function Login() {
 
   const guestBtnClickHandler = async () => {
     try {
-      const result = await login({
-        email: "testtwo@gmail.com",
-        password: "testtwo",
+      const data = await mutate({
+        variables: {
+          email: formData.email,
+          password: formData.password,
+        },
       });
-      if (result.error) {
+      if (data.error) {
         console.error("oh no something went wrong", result.error);
       }
       console.log({ result });

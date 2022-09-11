@@ -4,7 +4,7 @@ import CardDetailLikes from "./CardDetailLikes";
 import { CardDetailsContainer, CardVideoDetails } from "./CardDetails.styles";
 import CardDetailTitle from "./CardDetailTitle";
 import CardDetailViews from "./CardDetailViews";
-import { useMutation } from "urql";
+import { useMutation } from "@apollo/client";
 import { updateLikeCountMutation } from "../../../pages/video/videoPageQueries";
 
 const CardDetails = ({ video }) => {

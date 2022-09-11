@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "urql";
+import { useQuery } from "@apollo/client";
 import { getLikedVideosQuery } from "../likedVideosPageQueries";
 import { LikedPageContainer } from "./LikedVideosPage.styles";
 import DesktopNavbar from "../../../components/Navbar/DesktopNavbar/DesktopNavbar";

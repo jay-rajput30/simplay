@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "urql";
+import { useQuery } from "@apollo/client";
 import Card from "../../../components/Card/Card";
 import { getUserHistory } from "../historyPageQueries";
 import { HistoryPageContainer } from "./HistoryPage.styles";

@@ -29,7 +29,7 @@ let startServer = async () => {
         email: null,
       };
       let token = authHeader && authHeader.split(" ")[1];
-
+      console.log({ token, authHeader });
       if (!token || token === "") {
         user.isAuth = false;
         return user;

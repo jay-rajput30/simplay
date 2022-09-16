@@ -9,6 +9,7 @@ import {
   Button,
   ButtonContainer,
 } from "./LoginForm.styles";
+import { login } from "../../../auth";
 
 function Login() {
   const navigate = useNavigate();
@@ -23,26 +24,40 @@ function Login() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const btnClickHandler = async (e) => {
-    const { name } = e.target;
+  const invalidCredentials = (name, formData) => {
     if (
       (formData.email === "" || formData.password === "") &&
       name !== "guest"
     ) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const btnClickHandler = async (e) => {
+    console.log("inside login click handler");
+    const { name } = e.target;
+    if (invalidCredentials(name, formData)) {
       alert("invalid credentials");
     }
     try {
-      const { data } = await mutate({
-        variables: {
-          email: formData.email,
-          password: formData.password,
-        },
-      });
-      console.log({ data });
-      localStorage.setItem("token", {
-        token: data.login.token,
-        expiry: data.login.expiry,
-      });
+      const { token, expiry } = await login(formData);
+      // console.log({ response });
+      // const { data } = await mutate({
+      //   variables: {
+      //     email: formData.email,
+      //     password: formData.password,
+      //   },
+      // });
+      // console.log({ data });
+      localStorage.setItem(
+        "simplaytoken",
+        JSON.stringify({
+          token,
+          expiry,
+        })
+      );
       navigate("/");
     } catch (e) {
       console.log({ error: e });
@@ -61,7 +76,7 @@ function Login() {
         console.error("oh no something went wrong", result.error);
       }
       console.log({ result });
-      localStorage.setItem("token", {
+      localStorage.setItem("simplaytoken", {
         token: result.data.login.token,
         expiry: result.data.login.expiry,
       });

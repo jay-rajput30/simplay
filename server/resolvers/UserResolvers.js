@@ -1,5 +1,5 @@
 const User = require("../models/user.model");
-const bcrypt = require("bcrypt");
+
 const jwt = require("jsonwebtoken");
 const { AuthenticationError } = require("apollo-server-express");
 const Account = require("../models/account.model");
@@ -39,30 +39,30 @@ const UserResolvers = {
     },
   },
   Mutation: {
-    login: async (parent, args, context, info) => {
-      const { email, password } = args;
+    // login: async (parent, args, context, info) => {
+    //   const { email, password } = args;
 
-      const userFound = await User.findOne({ email });
-      const isValidPassword = bcrypt.compare(password, userFound.password);
-      if (!userFound) {
-        throw new Error("user does not exists");
-      }
-      if (!isValidPassword) {
-        throw new AuthenticationError("invalid password");
-      }
-      const token = await jwt.sign(
-        {
-          userId: userFound._id,
-          email: userFound.email,
-          name: userFound.name,
-        },
-        process.env.SECRET_KEY,
-        {
-          expiresIn: "2h",
-        }
-      );
-      return { token, expiry: 2 };
-    },
+    //   const userFound = await User.findOne({ email });
+    //   const isValidPassword = bcrypt.compare(password, userFound.password);
+    //   if (!userFound) {
+    //     throw new Error("user does not exists");
+    //   }
+    //   if (!isValidPassword) {
+    //     throw new AuthenticationError("invalid password");
+    //   }
+    //   const token = await jwt.sign(
+    //     {
+    //       userId: userFound._id,
+    //       email: userFound.email,
+    //       name: userFound.name,
+    //     },
+    //     process.env.SECRET_KEY,
+    //     {
+    //       expiresIn: "2h",
+    //     }
+    //   );
+    //   return { token, expiry: 2 };
+    // },
     signUp: async (parent, args, context, info) => {
       try {
         const { name, email, password } = args.user;

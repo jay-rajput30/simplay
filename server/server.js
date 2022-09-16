@@ -1,4 +1,7 @@
+const User = require("./models/user.model");
+const bcrypt = require("bcrypt");
 const express = require("express");
+const bodyParser = require("body-parser");
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs } = require("./typeDefs/index");
 const { resolvers } = require("./resolvers/index");
@@ -14,9 +17,7 @@ const corsOptions = {
 };
 // corsOptions
 app.use(cors(corsOptions));
-// app.post("/login", (req, res)=>{
 
-// })
 let startServer = async () => {
   const apolloserver = new ApolloServer({
     typeDefs,
@@ -50,7 +51,8 @@ let startServer = async () => {
       user.userId = decodedToken.userId;
       user.email = decodedToken.email;
       user.name = decodedToken.name;
-      return user;
+      // return user;
+      return {};
     },
   });
 
@@ -58,10 +60,33 @@ let startServer = async () => {
 
   apolloserver.applyMiddleware({ app });
 
-  app.use((req, res) => {
-    res.send("hello from apollo server");
+  // app.use((req, res) => {
+  //   res.send("hello from apollo server");
+  // });
+  app.use(bodyParser.json());
+  app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+    const userFound = await User.findOne({ email });
+    const isValidPassword = bcrypt.compare(password, userFound.password);
+    if (!userFound) {
+      throw new Error("user does not exists");
+    }
+    if (!isValidPassword) {
+      throw new AuthenticationError("invalid password");
+    }
+    const token = await jwt.sign(
+      {
+        userId: userFound._id,
+        email: userFound.email,
+        name: userFound.name,
+      },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: "2h",
+      }
+    );
+    res.json({ token: token, expiry: 2 });
   });
-
   intializeDBConnection();
 
   apolloserver.applyMiddleware({

@@ -11,12 +11,13 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { getToken } from "./auth";
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
 });
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("accessToken");
-
+  const token = getToken();
+  console.log("inside index", { token });
   return {
     headers: {
       ...headers,

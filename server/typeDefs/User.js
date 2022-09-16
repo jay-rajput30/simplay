@@ -24,7 +24,7 @@ const User = gql`
 
   type Mutation {
     signUp(user: UserInput): AuthorizedUser
-    login(email: String!, password: String!): AuthorizedUser
   }
 `;
+// login(email: String!, password: String!): AuthorizedUser
 module.exports = { User };

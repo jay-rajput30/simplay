@@ -1,0 +1,43 @@
+[{
+  "_id": {
+    "$oid": "628390113737699549b686a5"
+  },
+  "name": "user",
+  "email": "user@gmail.com",
+  "password": "$2b$12$ys2EYjG6fFmleNepcRqWp.paVl6dbElW134rwJzcpsj2qM3vTObv2",
+  "createdAt": {
+    "$date": "2022-05-17T12:07:45.823Z"
+  },
+  "updatedAt": {
+    "$date": "2022-05-17T12:07:45.823Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "628ace068b7aa59103cc8423"
+  },
+  "name": "testone",
+  "email": "testone@gmail.com",
+  "password": "$2b$12$ajsCOfb8qPBIYplmo/VJ0.JGaNAS2YxraHOK2AONY6DdsFOl7mVwC",
+  "createdAt": {
+    "$date": "2022-05-22T23:57:58.798Z"
+  },
+  "updatedAt": {
+    "$date": "2022-05-22T23:57:58.798Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "628af0e8e6e59ec003d57265"
+  },
+  "name": "testtwo",
+  "email": "testtwo@gmail.com",
+  "password": "$2b$12$s7ZUcnqhxZI2R6SQQF8peed/Gy/nYAIBeJyLT76vJr17R3TIaXKyG",
+  "createdAt": {
+    "$date": "2022-05-23T02:26:48.647Z"
+  },
+  "updatedAt": {
+    "$date": "2022-05-23T02:26:48.647Z"
+  },
+  "__v": 0
+}]

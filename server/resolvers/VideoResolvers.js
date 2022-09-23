@@ -2,17 +2,17 @@ const Video = require("../models/video.model");
 
 const VideoResolvers = {
   Query: {
-    getAllVideos: async (parent, args, context, info) => {
-      const { isAuth, userId, email, name } = context;
+    getAllVideos: async (parent, args, {user}) => {
+      const { isAuth, userId, email, name } = user;
+      console.log("inside video resolver on BE user values is")
+      console.log({isAuth, userId, email, name })
 
-      if (isAuth) {
-        try {
-          return await Video.find();
-        } catch (e) {
-          console.error({ error: e });
-        }
-      } else {
-        throw new AuthenticationError("unauthorized access");
+      try {
+        const result  = await Video.find({});
+        // console.log({result})
+        return result
+      } catch (e) {
+        console.error({ error: e });
       }
     },
   },

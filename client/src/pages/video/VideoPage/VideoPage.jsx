@@ -7,10 +7,16 @@ import { VideoCardsContainer } from "./VideoPage.styles";
 import DesktopNavbar from "../../../components/Navbar/DesktopNavbar/DesktopNavbar";
 import MobileNavbar from "../../../components/Navbar/MobileNavbar/MobileNavbar";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "../../../auth";
 
 const VideoPage = () => {
-  console.log("Bearer " + localStorage.getItem("accessToken"));
-  const { data, loading, error } = useQuery(getAllVidoesQuery);
+  console.log("Bearer " + getToken());
+  const { data, loading, error } = useQuery(getAllVidoesQuery, {
+    context: {
+      headers: { 'Authorization': getToken() ? getToken().token : "" },
+    },
+    fetchPolicy:"network-only"
+  });
   // const { data, fetching, error } = result;
   const navigate = useNavigate();
   if (loading) return <h1>loading...</h1>;
@@ -25,7 +31,7 @@ const VideoPage = () => {
       <DesktopNavbar />
       <MobileNavbar />
       <VideoCardsContainer>
-        {data.getAllVideos.map((item) => {
+        {data.allVideos.map((item) => {
           return (
             <Card
               key={item.id}

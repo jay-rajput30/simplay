@@ -15,11 +15,9 @@ export const logout = () => {
   localStorage.removeItem(ACCESS_TOKEN_KEY);
 };
 
-export const login = async (formData) => {
-  console.log("inside login auth function");
-  console.log("inside auth func", { formData });
+export const login = (formData) => {
   try {
-    const response = await fetch(`${API_URL}/login`, {
+    const response = fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

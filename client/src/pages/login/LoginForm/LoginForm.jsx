@@ -54,10 +54,10 @@ function Login() {
       localStorage.setItem(
         "simplaytoken",
         JSON.stringify({
-          token,
-          expiry,
+          token
         })
       );
+      // console.log("login was successful", {token, expiry})
       navigate("/");
     } catch (e) {
       console.log({ error: e });
@@ -78,7 +78,6 @@ function Login() {
       console.log({ result });
       localStorage.setItem("simplaytoken", {
         token: result.data.login.token,
-        expiry: result.data.login.expiry,
       });
       navigate("/");
     } catch (e) {

@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const getAllVidoesQuery = gql`
   query {
-    getAllVideos {
+    allVideos: getAllVideos {
       id
       title
       views

@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 require("dotenv").config();
 const app = express();
+// ["http://localhost:3000", "https://studio.apollographql.com"]
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
@@ -18,6 +19,39 @@ const corsOptions = {
 // corsOptions
 app.use(cors(corsOptions));
 intializeDBConnection();
+
+app.use(bodyParser.json());
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const userExists = await User.findOne({ email: email.toString() });
+
+    const isValidPassword = await bcrypt.compare(password, userExists.password);
+    if (!userExists) {
+      throw new Error("user does not exists");
+    }
+    if (!isValidPassword) {
+      throw new AuthenticationError("invalid password");
+    }
+    const token = await jwt.sign(
+      {
+        userId: userExists._id,
+        email: userExists.email,
+        name: userExists.name,
+      },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: "2h",
+      }
+    );
+    res.json({ token: token });
+  } catch (e) {
+    console.error({ error: e });
+    res.json({ success: false, error: e });
+  }
+});
 let startServer = async () => {
   const apolloserver = new ApolloServer({
     typeDefs,
@@ -29,82 +63,44 @@ let startServer = async () => {
         userId: null,
         email: null,
       };
-      // console.log({authHeader})
+      console.log("auth token" + req.headers.authorization);
       let token = authHeader;
-      // console.log({ authHeader });
+
       if (!token || token === "") {
         user.isAuth = false;
-        // return user;
       }
       let decodedToken;
       try {
         decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+        console.log({ decodedToken });
       } catch (e) {
         user.isAuth = false;
-        // console.error({ error: e });
       }
-      // console.log({decodedToken})
+
       if (!decodedToken) {
         user.isAuth = false;
-        // return user;
       }
       user.isAuth = true;
       user.userId = decodedToken.userId;
       user.email = decodedToken.email;
       user.name = decodedToken.name;
       console.log({ user });
-      return {user};
-      // return {};
+      return { user };
     },
   });
 
   await apolloserver.start();
 
-  apolloserver.applyMiddleware({ app });
+  // apolloserver.applyMiddleware({ app });
 
   // app.use((req, res) => {
   //   res.send("hello from apollo server");
   // });
-  app.use(bodyParser.json());
-
-  app.post("/login", async (req, res) => {
-    try {
-      const { email, password } = req.body;
-
-      const userExists = await User.findOne({ email: email.toString() });
-
-      const isValidPassword = await bcrypt.compare(
-        password,
-        userExists.password
-      );
-      if (!userExists) {
-        throw new Error("user does not exists");
-      }
-      if (!isValidPassword) {
-        throw new AuthenticationError("invalid password");
-      }
-      const token = await jwt.sign(
-        {
-          userId: userExists._id,
-          email: userExists.email,
-          name: userExists.name,
-        },
-        process.env.SECRET_KEY,
-        {
-          expiresIn: "2h",
-        }
-      );
-      res.json({ token: token });
-    } catch (e) {
-      console.error({ error: e });
-      res.json({ success: false, error: e });
-    }
-  });
 
   apolloserver.applyMiddleware({
     app,
     path: "/graphql",
-    cors: false,
+    // cors: false,
   });
 
   // cors: false, disables the apollo-server-express cors to allow the cors middleware use

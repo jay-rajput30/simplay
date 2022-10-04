@@ -28,6 +28,7 @@ const Video = gql`
 
   type Query {
     getAllVideos: [Video]
+    getVideo: Video!
   }
 
   type Mutation {

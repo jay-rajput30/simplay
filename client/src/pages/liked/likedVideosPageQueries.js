@@ -1,4 +1,6 @@
-export const getLikedVideosQuery = `
+import { gql } from "@apollo/client";
+
+export const getLikedVideosQuery = gql`
     query{
         getUserLikedVideos{
             uid

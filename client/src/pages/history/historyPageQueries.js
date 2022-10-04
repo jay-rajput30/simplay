@@ -1,6 +1,9 @@
-export const getUserHistory = `
+import { gql } from "@apollo/client";
+
+
+export const getUserHistory = gql`
 query{
-    getUserHistory{
+    historyVideos:getUserHistory{
       uid
       history{
         id

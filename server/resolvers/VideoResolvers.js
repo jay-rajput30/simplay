@@ -1,20 +1,29 @@
+const { db } = require("../models/video.model");
 const Video = require("../models/video.model");
 
 const VideoResolvers = {
   Query: {
-    getAllVideos: async (parent, args, {user}) => {
+    getAllVideos: async (parent, args, { user }) => {
       const { isAuth, userId, email, name } = user;
-      console.log("inside video resolver on BE user values is")
-      console.log({isAuth, userId, email, name })
-
-      try {
-        const result  = await Video.find({});
-        // console.log({result})
-        return result
-      } catch (e) {
-        console.error({ error: e });
+      if (isAuth) {
+        try {
+          const result = await Video.find({});
+          // console.log({result})
+          return result;
+        } catch (e) {
+          console.error({ error: e });
+        }
       }
     },
+    // getVideo: async(_,_args, {user})=>{
+    //   const { isAuth, userId, email, name } = user;
+    //   // get the single video from d
+    //   // breturn the singelvideo if it is found
+    //   if(isAuth){
+    //     const videoFound = await Video.findById
+    //   }
+
+    // }
   },
   Mutation: {
     addVideo: async (parent, args, context, info) => {

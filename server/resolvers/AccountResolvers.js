@@ -6,44 +6,47 @@ const AccountResolvers = {
     getUserLikedVideos: async (parent, args, context, info) => {
       const { isAuth, userId, email, name } = context;
 
-      if (isAuth) {
-        try {
-          const accountDetails = await Account.findOne({
-            uid: userId,
-          }).populate({ path: "likedVideos", model: "video" });
-          console.log({ videosBE: accountDetails.likedVideos });
-          return {
-            uid: accountDetails.uid,
-            likedVideos: accountDetails.likedVideos,
-          };
-        } catch (e) {
-          console.error({ error: e });
-        }
-      } else {
-        throw new AuthenticationError("unauthorized access");
+      // if (isAuth) {
+      try {
+        const accountDetails = await Account.findOne({
+          uid: userId,
+        }).populate({ path: "likedVideos", model: "video" });
+        console.log({ videosBE: accountDetails.likedVideos });
+        return {
+          uid: accountDetails.uid,
+          likedVideos: accountDetails.likedVideos,
+        };
+      } catch (e) {
+        console.error({ error: e });
       }
     },
-    getUserHistory: async (parent, args, context, info) => {
-      const { isAuth, userId, email, name } = context;
-      if (isAuth) {
-        try {
-          const accountDetails = await Account.findOne({
-            uid: userId,
-          }).populate({
-            path: "history",
-            model: "video",
-          });
-          console.log({ accountDetails });
-          return {
-            uid: accountDetails.uid,
-            history: accountDetails.history,
-          };
-        } catch (e) {
-          console.error({ error: e });
-        }
-      } else {
-        throw new AuthenticationError("unauthorized access");
+    // else {
+    //   throw new AuthenticationError("unauthorized access");
+    // }
+    // }
+    getUserHistory: async (parent, args, { user }, info) => {
+      const { isAuth, userId, email, name } = user;
+      console.log("inside history");
+      console.log({ isAuth, userId, email, name });
+      // if (isAuth) {
+      try {
+        const accountDetails = await Account.findOne({
+          uid: userId,
+        }).populate({
+          path: "history",
+          model: "video",
+        });
+        console.log({ history: accountDetails.history });
+        return {
+          uid: accountDetails.uid,
+          history: accountDetails.history,
+        };
+      } catch (e) {
+        console.error({ error: e });
       }
+      // } else {
+      //   throw new AuthenticationError("unauthorized access");
+      // }
     },
   },
   Mutation: {

@@ -17,14 +17,13 @@ const HistoryPage = () => {
   // const { data, fetching, error } = result;
   if (fetching) return <h1>loading...</h1>;
   if (error) return <h1>Oh something went wrong! {error.message}</h1>;
-  console.log({history: data});
   return (
     <HistoryPageContainer>
       <DesktopNavbar />
       <MobileNavbar />
-      {/* {data.historyVideos.history.map((item) => {
+      {data && data.historyVideos.history.map((item) => {
         return <Card video={item} />;
-      })} */}
+      })}
     </HistoryPageContainer>
   );
 };

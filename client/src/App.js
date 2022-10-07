@@ -15,12 +15,12 @@ function App() {
   return (
     <MainContainer>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<VideoPage />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<VideoPage />} />
         <Route path="/liked" element={<LikedVideosPage />} />
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/account" element={<AccountPage />} />
-        <Route path="singlepage/:id" element={<SingleVideoPage />} />
+        <Route path="singlevideo/:id" element={<SingleVideoPage />} />
       </Routes>
       {/* <MobileNavbar /> */}
       {/* <DesktopNavbar /> */}

@@ -15,6 +15,20 @@ const VideoResolvers = {
         }
       }
     },
+    getVideo: async (parent, args, { user }, info) => {
+      const { isAuth, userId, email, name } = user;
+
+      if (isAuth) {
+        try {
+          const { id } = args;
+          return await Video.findById(id);
+        } catch (e) {
+          console.error({ error: e });
+        }
+      } else {
+        throw new AuthenticationError("unauthorized access");
+      }
+    },
     // getVideo: async(_,_args, {user})=>{
     //   const { isAuth, userId, email, name } = user;
     //   // get the single video from d
@@ -56,20 +70,6 @@ const VideoResolvers = {
             thumbnailImage,
           });
           await newVideo.save();
-        } catch (e) {
-          console.error({ error: e });
-        }
-      } else {
-        throw new AuthenticationError("unauthorized access");
-      }
-    },
-    getVideo: async (parent, args, context, info) => {
-      const { isAuth, userId, email, name } = context;
-
-      if (isAuth) {
-        try {
-          const { id } = args;
-          return await Video.findById(id);
         } catch (e) {
           console.error({ error: e });
         }

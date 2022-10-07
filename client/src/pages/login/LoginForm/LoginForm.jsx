@@ -58,7 +58,7 @@ function Login() {
         })
       );
       // console.log("login was successful", {token, expiry})
-      navigate("/");
+      navigate("/home");
     } catch (e) {
       console.log({ error: e });
     }

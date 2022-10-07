@@ -28,12 +28,12 @@ const Video = gql`
 
   type Query {
     getAllVideos: [Video]
-    getVideo: Video!
+    getVideo(id: ID): Video
   }
 
   type Mutation {
     addVideo(video: VideoInput): Video
-    getVideo(id: ID): Video
+
     deleteVideo(id: ID): Video
   }
 `;

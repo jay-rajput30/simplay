@@ -25,7 +25,7 @@ const DesktopNavbar = () => {
   };
   return (
     <DesktopNavbarContainer>
-      <DesktopNavbarItem onClick={() => navIconCLickHandler("/")}>
+      <DesktopNavbarItem onClick={() => navIconCLickHandler("/home")}>
         <IconContext.Provider
           value={{
             className: "desktop--navbar--icon",

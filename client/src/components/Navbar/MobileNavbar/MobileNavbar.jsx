@@ -16,7 +16,7 @@ const MobileNavbar = () => {
   };
   return (
     <MobileNavbarContainer>
-      <NavLink to="/">
+      <NavLink to="/home">
         <IconContext.Provider
           value={{
             style: {

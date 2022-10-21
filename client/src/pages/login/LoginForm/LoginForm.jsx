@@ -68,8 +68,8 @@ function Login() {
     try {
       const data = await mutate({
         variables: {
-          email: formData.email,
-          password: formData.password,
+          email: "testtwo@gmail.com",
+          password: "testtwo",
         },
       });
       if (data.error) {

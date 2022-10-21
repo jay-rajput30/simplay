@@ -9,7 +9,7 @@ let intializeDBConnection = async () => {
     });
     console.log("connected to the database: "+conn.connection.host);
   } catch (e) {
-    console.error(`something went wrong, error: ${error}`);
+    console.error({error});
   }
 };
 
